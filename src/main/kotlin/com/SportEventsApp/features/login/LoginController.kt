@@ -5,6 +5,7 @@ import com.SportEventsApp.cache.TokenCache
 import com.SportEventsApp.database.tokens.TokenDTO
 import com.SportEventsApp.database.tokens.Tokens
 import com.SportEventsApp.database.users.Users
+import com.SportEventsApp.features.getNames.NamesResponseRemote
 import com.SportEventsApp.features.register.RegisterResponseRemote
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -26,8 +27,7 @@ class LoginController (private val call:ApplicationCall){
                     token = token
                 )
                 )
-                call.respond(LoginResponseRemote(token = token))
-                call.respond(LoginResponseRemote(token = token))
+                call.respond(LoginResponseRemote(firstName = userDTO.firstName, secondName = userDTO.secondName,token = token))
 
             }
             else{

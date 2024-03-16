@@ -13,14 +13,16 @@ import java.util.*
 
 class GetNamesController (private val call: ApplicationCall){
     suspend fun performGetNames(){
-        val receive = call.receive<NamesReceiveRemote>()
-        val userDTO = Users.fetchUser(receive.email)
-
+        val emailRoute = call.parameters["email"].toString()
+//        val receive = call.receive<NamesReceiveRemote>()
+        val userDTO = Users.fetchUser(emailRoute)
 
 
         if (userDTO==null){call.respond(HttpStatusCode.BadRequest, "user not found")}
+
+
         else{
-            if (userDTO.email == receive.email){
+            if (userDTO.email == emailRoute){
 
 
                 call.respond(NamesResponseRemote(firstName = userDTO.firstName, secondName = userDTO.secondName))

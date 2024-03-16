@@ -7,7 +7,7 @@ import io.ktor.server.routing.*
 fun Application.configureGetNamesRouting() {
     routing {
 
-        get("/getNames") {
+        get("/getNames/{email}") {
             val getNamesController = GetNamesController(call)
             getNamesController.performGetNames()
 
