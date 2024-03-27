@@ -1,12 +1,8 @@
 package com.SportEventsApp.features.login
 
-import com.SportEventsApp.cache.InMemoryCache
-import com.SportEventsApp.cache.TokenCache
 import com.SportEventsApp.database.tokens.TokenDTO
 import com.SportEventsApp.database.tokens.Tokens
 import com.SportEventsApp.database.users.Users
-import com.SportEventsApp.features.getNames.NamesResponseRemote
-import com.SportEventsApp.features.register.RegisterResponseRemote
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*

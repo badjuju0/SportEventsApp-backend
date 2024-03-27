@@ -1,6 +1,7 @@
 package com.SportEventsApp
 
-import com.SportEventsApp.features.getNames.configureGetNamesRouting
+import com.SportEventsApp.features.createEvent.configureEventCreateRouting
+import com.SportEventsApp.features.getEvents.configureGetNamesRouting
 import com.SportEventsApp.features.login.configureLoginRouting
 import com.SportEventsApp.features.register.configureRegisterRouting
 import com.SportEventsApp.plugins.*
@@ -21,4 +22,5 @@ fun Application.module() {
     configureLoginRouting()
     configureSerialization()
     configureGetNamesRouting()
+    configureEventCreateRouting()
 }
