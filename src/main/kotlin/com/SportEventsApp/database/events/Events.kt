@@ -32,10 +32,10 @@ object Events: Table() {
     }
 
 
-    fun fetchEvents(id:String): EventsDTO?{
+    fun fetchEvents(title:String): EventsDTO?{
         return  try {
             transaction {
-                val eventModel = Events.select{Events.id.eq(id)}.single()
+                val eventModel = Events.select{Events.title.eq(title)}.single()
                 EventsDTO(
                     id = eventModel[Events.id],
                     sportType = eventModel[Events.sportType],
@@ -44,7 +44,6 @@ object Events: Table() {
                     location = eventModel[Events.location],
                     organizer = eventModel[Events.organizer],
                     phoneNumber = eventModel[Events.phoneNumber],
-
                     )
             }
         }catch (e:Exception){null}
