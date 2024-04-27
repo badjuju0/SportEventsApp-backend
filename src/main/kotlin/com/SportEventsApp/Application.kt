@@ -1,5 +1,6 @@
 package com.SportEventsApp
 
+import com.SportEventsApp.features.createApplication.configureApplicationRouting
 import com.SportEventsApp.features.createEvent.configureEventCreateRouting
 import com.SportEventsApp.features.getEvents.configureGetEventsRouting
 
@@ -24,4 +25,5 @@ fun Application.module() {
     configureSerialization()
     configureGetEventsRouting()
     configureEventCreateRouting()
+    configureApplicationRouting()
 }
