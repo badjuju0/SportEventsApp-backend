@@ -13,9 +13,25 @@ fun Application.configureApplicationRouting() {
             applicationController.createApplication()
         }
 
-        get("/getApplications/{eventId}") {
+        get("/getApplications/{title}") {
             val getApplicationsController = ApplicationController(call)
             getApplicationsController.performGetApplications()
+
+        }
+
+        post("/approveApplication/{id}") {
+            val applicationController = ApplicationController(call)
+            applicationController.performApproveApplication()
+        }
+
+        post("/dismissApplication/{id}") {
+            val applicationController = ApplicationController(call)
+            applicationController.performDismissApplication()
+        }
+
+        get("/participants/{title}") {
+            val getApplicationsController = ApplicationController(call)
+            getApplicationsController.performGetParticipants()
 
         }
 

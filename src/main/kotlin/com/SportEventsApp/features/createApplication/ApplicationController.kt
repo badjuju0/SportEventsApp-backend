@@ -33,9 +33,30 @@ class ApplicationController(private val call: ApplicationCall) {
     }
 
     suspend fun performGetApplications(){
-        val applicationRoute = call.parameters["eventId"].toString()
+        val applicationRoute = call.parameters["title"].toString()
         val applicationsDTO = Applications.fetchAllApplications(applicationRoute)
         call.respond(ApplicationsResponseRemote(applications = applicationsDTO))
+
+    }
+
+    suspend fun performGetParticipants(){
+        val applicationRoute = call.parameters["title"].toString()
+        val applicationsDTO = Applications.fetchParticipants(applicationRoute)
+        call.respond(ApplicationsResponseRemote(applications = applicationsDTO))
+
+    }
+
+    suspend fun performApproveApplication(){
+        val applicationRoute = call.parameters["id"].toString()
+        val applicationsDTO = Applications.approveApplication(applicationRoute)
+        call.respond(ApplicationResponseRemote(answer = "Application approve successfully"))
+
+    }
+
+    suspend fun performDismissApplication(){
+        val applicationRoute = call.parameters["id"].toString()
+        val applicationsDTO = Applications.dismissApplication(applicationRoute)
+        call.respond(ApplicationResponseRemote(answer = "Application dismiss successfully"))
 
     }
 

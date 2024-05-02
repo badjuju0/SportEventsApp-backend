@@ -3,11 +3,8 @@ package com.SportEventsApp.database.applications
 import com.SportEventsApp.database.events.EventTitle
 import com.SportEventsApp.database.events.Events
 import com.SportEventsApp.database.events.EventsDTO
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object Applications: Table(){
@@ -56,7 +53,7 @@ object Applications: Table(){
     fun fetchAllApplications(title:String): List<ApplicationDTO> {
         return  try {
             transaction {
-                val allApplications = selectAll().where{ Applications.eventTitle eq title }.toList()
+                val allApplications = selectAll().where{ (Applications.eventTitle eq title) and (Applications.approve eq null) }.toList()
                     .map {
                         ApplicationDTO(
                             id = it[Applications.id],
@@ -66,10 +63,6 @@ object Applications: Table(){
                             teamName = it[Applications.teamName],
                             approve = it[Applications.approve],
                             eventTitle = it[Applications.eventTitle],
-
-
-
-
                             )
                     }
                 return@transaction allApplications
@@ -77,6 +70,48 @@ object Applications: Table(){
         }catch (e:Exception){
             emptyList()
         }
+    }
+
+    fun fetchParticipants(title:String): List<ApplicationDTO> {
+        return  try {
+            transaction {
+                val allParticipants = selectAll().where{ (Applications.eventTitle eq title) and (Applications.approve eq "true")} .toList()
+                    .map {
+                        ApplicationDTO(
+                            id = it[Applications.id],
+                            fio = it[Applications.fio],
+                            age = it[Applications.age],
+                            phoneNumber = it[Applications.phoneNumber],
+                            teamName = it[Applications.teamName],
+                            approve = it[Applications.approve],
+                            eventTitle = it[Applications.eventTitle],
+                            )
+                    }
+                return@transaction allParticipants
+            }
+        }catch (e:Exception){
+            emptyList()
+        }
+    }
+
+    fun approveApplication(id:String): Unit? {
+        return try {
+            transaction {
+                val applicationModel = Applications.update({Applications.id.eq(id)}){
+                    it[approve] = "true"
+                }
+            }
+        }catch (e:Exception){null}
+    }
+
+    fun dismissApplication(id:String): Unit? {
+        return try {
+            transaction {
+                val applicationModel = Applications.update({Applications.id.eq(id)}){
+                    it[approve] = "false"
+                }
+            }
+        }catch (e:Exception){null}
     }
 
 }
