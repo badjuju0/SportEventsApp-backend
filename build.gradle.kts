@@ -21,6 +21,7 @@ application {
 }
 
 repositories {
+    google()
     mavenCentral()
 }
 
@@ -29,12 +30,10 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
     implementation("io.ktor:ktor-server-cio-jvm")
     implementation ("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-
     implementation("org.postgresql:postgresql:42.2.2")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
