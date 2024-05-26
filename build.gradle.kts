@@ -20,10 +20,12 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
-repositories {
-    google()
-    mavenCentral()
+buildscript{
+    repositories {
+        mavenCentral()
+    }
 }
+
 
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm")
@@ -38,4 +40,5 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
 }
