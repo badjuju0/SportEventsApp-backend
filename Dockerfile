@@ -1,10 +1,8 @@
-FROM gradle:7-jdk17 AS build
+# Stage 1: Build the applicationFROM gradle:7.6.0-jdk11 AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle buildFatJar --no-daemon
-
-FROM openjdk:17
-EXPOSE 8080:8080
-RUN mkdir /app
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/ktor-docker-sample.jar
-ENTRYPOINT ["java","-jar","/app/ktor-docker-sample.jar"]
+RUN gradle buildFatJar --no-daemon -Dorg.gradle.jvmargs="-Xmx256m"
+# Stage 2: Run the applicationFROM openjdk:11-jre-slim
+EXPOSE 8080
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/sportEvents-back.jar
+ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-jar", "/app/sportEvents-back.jar"]
