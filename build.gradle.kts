@@ -49,10 +49,24 @@ ktor {
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core-jvm")
-    implementation("io.ktor:ktor-server-content-negotiation-jvm")
-    implementation("io.ktor:ktor-server-cio-jvm")
-    implementation ("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+
+    implementation("io.ktor:ktor-server-core-jvm:$ktor_version") {
+        exclude(group = "com.google.guava", module = "guava")
+    }
+    implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version") {
+        exclude(group = "com.google.guava", module = "guava")
+    }
+    implementation("io.ktor:ktor-server-cio-jvm:$ktor_version") {
+        exclude(group = "com.google.guava", module = "guava")
+    }
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version") {
+        exclude(group = "com.google.guava", module = "guava")
+    }
+
+//    implementation("io.ktor:ktor-server-core-jvm")
+//    implementation("io.ktor:ktor-server-content-negotiation-jvm")
+//    implementation("io.ktor:ktor-server-cio-jvm")
+//    implementation ("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
