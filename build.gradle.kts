@@ -25,8 +25,29 @@ repositories {
     mavenCentral()
 }
 
+ktor {
+    docker {
+        jreVersion.set(JavaVersion.VERSION_21)
+        localImageName.set("sportEvents-back")
+        imageTag.set("0.0.1-preview")
+
+        portMappings.set(
+            listOf(
+                io.ktor.plugin.features.DockerPortMapping(
+                    outsideDocker = 80,
+                    insideDocker = 8080,
+                    io.ktor.plugin.features.DockerPortMappingProtocol.TCP
+                )
+            )
+        )
+    }
+
+    fatJar {
+        archiveFileName.set("fat.jar")
+    }
+}
+
 dependencies {
-    implementation("com.google.guava:guava:31.1-jre")
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
     implementation("io.ktor:ktor-server-cio-jvm")
