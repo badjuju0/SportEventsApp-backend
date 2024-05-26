@@ -21,7 +21,6 @@ application {
 }
 
 repositories {
-    google()
     mavenCentral()
 }
 
