@@ -5,7 +5,7 @@ WORKDIR /home/gradle/src
 RUN gradle buildFatJar --no-daemon -Dorg.gradle.jvmargs="-Xmx256m"
 
 # Stage 2: Run the application
-FROM openjdk:17-jre-slim
+FROM openjdk:11-jre-slim
 EXPOSE 8080
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/sportEvent.jar
 ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-jar", "/app/sportEvent.jar"]
