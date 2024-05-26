@@ -23,6 +23,7 @@ application {
 
 repositories {
     mavenCentral()
+    google()
 }
 
 ktor {
