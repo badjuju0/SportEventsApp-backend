@@ -1,24 +1,11 @@
-# Use the official gradle image to create a build artifact.
-FROM gradle:6.7 as builder
+# Stage 1: Build the application
+FROM gradle:7.6.0-jdk11 AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle buildFatJar --no-daemon -Dorg.gradle.jvmargs="-Xmx256m"
 
-# Copy local code to the container image.
-COPY build.gradle.kts .
-COPY gradle.properties .
-COPY src ./src
-
-# Build a release artifact.
-RUN gradle installDist
-
-FROM openjdk:8-jdk
-EXPOSE 8080:8080
-RUN mkdir /app
-COPY --from=builder /home/gradle/build/install/gradle /app/
-WORKDIR /app/bin
-CMD ["./gradle"]
-
-
-## https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-# RUN gradle clean build --no-daemon
-# FROM openjdk:8-jre-alpine
-# COPY --from=builder /home/gradle/build/libs/gradle.jar /helloworld.jar
-# CMD [ "java", "-jar", "-Djava.security.egd=file:/dev/./urandom", "/helloworld.jar" ]
+# Stage 2: Run the application
+FROM openjdk:11-jre-slim
+EXPOSE 8080
+COPY --from=build /home/gradle/src/build/libs/*.jar /app/sportEvent.jar
+ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-jar", "/app/sportEvent.jar"]
