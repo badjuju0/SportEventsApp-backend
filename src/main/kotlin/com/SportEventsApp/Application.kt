@@ -13,10 +13,16 @@ import io.ktor.server.engine.*
 import org.jetbrains.exposed.sql.Database
 
 fun main() {
-    Database.connect("jdbc:postgresql://localhost:5432/SportEvents", driver = "org.postgresql.Driver", user = "postgres", password = "root")
+   Database.connect(
+        url = System.getenv("DB_URL"),
+        driver = "org.postgresql.Driver",
+        user = System.getenv("DB_USER"),
+        password = System.getenv("DB_PASSWORD")
+    )
     embeddedServer(CIO, port = 8080, host = "0.0.0.0", module = Application::module)
         .start(wait = true)
 }
+
 
 fun Application.module() {
     configureRouting()
