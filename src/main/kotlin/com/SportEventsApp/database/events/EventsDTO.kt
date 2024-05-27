@@ -10,7 +10,8 @@ class EventsDTO (
     val dates: String,
     val location: String,
     val organizer: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val owner: String
 )
 @Serializable
 class EventTitle(

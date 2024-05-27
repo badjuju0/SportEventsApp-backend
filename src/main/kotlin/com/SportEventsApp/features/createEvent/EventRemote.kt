@@ -1,6 +1,7 @@
 package com.SportEventsApp.features.createEvent
 
 import kotlinx.serialization.Serializable
+import javax.print.attribute.standard.DialogOwner
 
 @Serializable
 data class EventReceiveRemote(
@@ -10,7 +11,9 @@ data class EventReceiveRemote(
     val dates: String,
     val location: String,
     val organizer: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val owner: String
+
 )
 
 @Serializable

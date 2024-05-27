@@ -28,7 +28,8 @@ class GetEventsController (private val call: ApplicationCall){
                     dates = eventDTO.dates,
                     location = eventDTO.location,
                     organizer = eventDTO.organizer,
-                    phoneNumber = eventDTO.phoneNumber
+                    phoneNumber = eventDTO.phoneNumber,
+                    owner = eventDTO.owner,
                 ))
 
             }

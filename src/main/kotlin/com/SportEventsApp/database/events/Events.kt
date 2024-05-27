@@ -9,12 +9,12 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object Events: Table() {
     private val id = Events.varchar("id", 50)
     private val sportType = Events.varchar("sportType", 30)
-    private val title = Events.varchar("title", 30)
+    private val title = Events.varchar("title", 50)
     private val dates = Events.varchar("dates", 30)
     private val location = Events.varchar("location", 30)
     private val organizer = Events.varchar("organizer", 30)
     private val phoneNumber = Events.varchar("phoneNumber", 30)
-
+    private val owner = Events.varchar("owner", 30)
 
 
     fun insert (eventsDTO:EventsDTO){
@@ -27,6 +27,7 @@ object Events: Table() {
                 it[location] = eventsDTO.location
                 it[organizer] = eventsDTO.organizer
                 it[phoneNumber] = eventsDTO.phoneNumber
+                it[owner] = eventsDTO.owner
             }
         }
     }
@@ -44,6 +45,7 @@ object Events: Table() {
                     location = eventModel[Events.location],
                     organizer = eventModel[Events.organizer],
                     phoneNumber = eventModel[Events.phoneNumber],
+                    owner = eventModel[Events.owner],
                     )
             }
         }catch (e:Exception){null}

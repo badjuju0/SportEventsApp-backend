@@ -33,4 +33,5 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
+.vscode/Application.kt
+Application.kt

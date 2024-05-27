@@ -41,6 +41,7 @@ class EventCreateController(private val call:ApplicationCall) {
                         location = eventReceiveRemote.location,
                         organizer = eventReceiveRemote.organizer,
                         phoneNumber = eventReceiveRemote.phoneNumber,
+                        owner = eventReceiveRemote.owner
                     )
                 )
                 call.respond(EventResponseRemote(answer = "Event created successfully"))
