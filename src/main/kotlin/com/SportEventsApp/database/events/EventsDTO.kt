@@ -15,5 +15,6 @@ class EventsDTO (
 )
 @Serializable
 class EventTitle(
-    val title: String
+    val title: String,
+    val sportType: String
 )

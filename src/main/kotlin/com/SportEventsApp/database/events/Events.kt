@@ -57,7 +57,8 @@ object Events: Table() {
                 val allEvents = selectAll().toList()
                     .map {
                         EventTitle(
-                            title = it[Events.title]
+                            title = it[Events.title],
+                            sportType = it[Events.sportType],
                         )
                     }
 
