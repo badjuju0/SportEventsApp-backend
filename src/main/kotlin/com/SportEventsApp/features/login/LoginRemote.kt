@@ -14,3 +14,12 @@ data class LoginResponseRemote(
     val firstName:String,
     val secondName:String,
 )
+
+@Serializable
+data class TokenReceive(
+    val token: String
+)
+@Serializable
+data class TokenResponse(
+    val answer: String
+)

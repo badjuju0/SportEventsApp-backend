@@ -1,6 +1,8 @@
 package com.SportEventsApp.database.tokens
 
+import ch.qos.logback.core.subst.Token
 import com.SportEventsApp.database.users.UserDTO
+import com.SportEventsApp.database.users.Users
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.insert
@@ -22,6 +24,21 @@ object Tokens : Table(){
             }
 
         }
+    }
+
+    fun fetchToken(token:String): TokenDTO? {
+        return try {
+            transaction {
+                val tokenModel = Tokens.select{ Tokens.token.eq(token) }.single()
+                TokenDTO(
+                    email = tokenModel[Tokens.email],
+                    rowId  = tokenModel[Tokens.id],
+                    token = tokenModel[Tokens.token]
+                )
+            }
+
+        } catch (e:Exception){null}
+
     }
 
 }

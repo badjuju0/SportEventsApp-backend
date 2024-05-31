@@ -24,11 +24,23 @@ class LoginController (private val call:ApplicationCall){
                 )
                 )
                 call.respond(LoginResponseRemote(firstName = userDTO.firstName, secondName = userDTO.secondName,token = token))
-
             }
             else{
                 call.respond(HttpStatusCode.BadRequest, "invalid password")
             }
+        }
+    }
+
+    suspend fun checkToken(){
+        val receive = call.receive<TokenReceive>()
+        val tokenDTO = Tokens.fetchToken(receive.token)
+        if (tokenDTO != null) {
+            if (tokenDTO.token == receive.token){
+                call.respond(TokenResponse("success"))
+            }else{
+                call.respond(HttpStatusCode.BadRequest, "invalid token")
+            }
+
         }
     }
 }

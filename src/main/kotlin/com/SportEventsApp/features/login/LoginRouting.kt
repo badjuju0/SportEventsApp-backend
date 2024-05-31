@@ -15,9 +15,10 @@ fun Application.configureLoginRouting() {
         post("/login") {
             val loginController = LoginController(call)
             loginController.performLogin()
-
-
-
+        }
+        post("/checkToken") {
+            val loginController = LoginController(call)
+            loginController.checkToken()
         }
     }
 }
